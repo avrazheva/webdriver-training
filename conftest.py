@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
+from utils import Utils
 
 CREDENTIALS = "admin"
 
@@ -15,6 +16,7 @@ def setup_test(request):
     # driver = webdriver.Firefox()
     request.cls.driver = driver
     request.cls.wait = wait
+    request.cls.utils = Utils(driver, wait)
     yield
     print("TearDown")
     driver.close()
@@ -24,6 +26,7 @@ def setup_test(request):
 def login(request):
     print("Login As Admin")
     driver = webdriver.Chrome()
+    # driver = webdriver.Firefox()
     wait = WebDriverWait(driver, 10)
     driver.get("http://localhost/litecart/admin/")
     username = driver.find_element_by_name("username")
@@ -36,6 +39,7 @@ def login(request):
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "widget-sales")))
     request.cls.driver = driver
     request.cls.wait = wait
+    request.cls.utils = Utils(driver, wait)
     yield
     print("TearDown")
     driver.close()
