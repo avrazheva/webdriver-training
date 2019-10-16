@@ -11,8 +11,8 @@ CREDENTIALS = "admin"
 def setup_test(request):
     print("SetUp")
     driver = webdriver.Chrome()
-    wait = WebDriverWait(driver, 10)
     # driver = webdriver.Firefox()
+    wait = WebDriverWait(driver, 10)
     request.cls.driver = driver
     request.cls.wait = wait
     yield
