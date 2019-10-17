@@ -3,6 +3,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
+
+from page_objects.cart_page import CartPage
+from page_objects.main_page import MainPage
+from page_objects.product_detail_page import ProductDetailPage
 from utils import Utils
 
 CREDENTIALS = "admin"
@@ -17,6 +21,9 @@ def setup_test(request):
     request.cls.driver = driver
     request.cls.wait = wait
     request.cls.utils = Utils(driver, wait)
+    request.cls.main_page = MainPage(driver, wait)
+    request.cls.cart_page = CartPage(driver, wait)
+    request.cls.pdp = ProductDetailPage(driver, wait)
     yield
     print("TearDown")
     driver.close()
